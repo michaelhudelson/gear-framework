@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 GitHub: https://github.com/michaelhudelson/gear-framework
 
+## [1.0.007] - 2016-12-22
+### Changed
+- /gear-library/gear-traits/Dates.php - date() - Fixed bug
+
 ## [1.0.006] - 2016-12-21
 ### Added
 - CHANGELOG file added
@@ -13,5 +17,5 @@ GitHub: https://github.com/michaelhudelson/gear-framework
 - Used phpcs to standardize code
 
 ## [1.0.005] - 2016-12-20
-##
+###
 -First version placed on GitHub

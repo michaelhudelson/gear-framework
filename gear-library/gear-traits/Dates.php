@@ -54,6 +54,8 @@ trait Dates
         // check if time string is malformed
         if (strpos($time, ':') === false) {
             $his = '00:00:00';
+        } else {
+            $his = $time;
         }
         
         // add tme to return_date
@@ -66,7 +68,7 @@ trait Dates
             return $datetime_object->format($format);
         } else {
             // return current date when DateTime fails
-            return date($format, strtotime($adjust));
+            return date($format, strtotime($adjust, $ymd_his));
         }
     }
     
