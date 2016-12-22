@@ -1,0 +1,17 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+GitHub: https://github.com/michaelhudelson/gear-framework
+
+## [1.0.006] - 2016-12-21
+### Added
+- CHANGELOG file added
+- In DatabaseAccess.php - added comments to simpleSelectJoin
+- Used phpcs to standardize code
+
+## [1.0.005] - 2016-12-20
+##
+-First version placed on GitHub

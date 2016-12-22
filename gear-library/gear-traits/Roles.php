@@ -49,7 +49,7 @@ trait Roles
         return $user->roles;
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     public static function userIsRole() // [$user_id], $roles
     {
@@ -60,7 +60,7 @@ trait Roles
             $user_id = (int)$args[0];
             $roles = $args[1];
         } else {
-        // if not get current user id
+            // if not get current user id
             $user_id = get_current_user_id();
             $roles = $args[0];
         }
@@ -113,7 +113,7 @@ trait Roles
         }
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // sets allowed roles for current page slug
     public static function allowedRoles($roles = null)
@@ -177,7 +177,7 @@ trait Roles
         return self::addAllowedUser();
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // sets denied roles for current page slug
     public static function deniedRoles($roles = null)
@@ -241,7 +241,7 @@ trait Roles
         return self::addDeniedUser();
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // change access denied message
     public static function setAccessDeniedMessage($message)
@@ -249,7 +249,7 @@ trait Roles
         $GLOBALS['gf_access_denied_message'] =  $message;
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // if administrator is in list of roles, add developer
     private static function developerAsAdministrator(&$roles)

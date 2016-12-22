@@ -285,7 +285,8 @@ trait AdminMenu
                 $message .= '<h3>Success</h3>';
 
                 // create post
-                $insert_id = wp_insert_post(array(
+                wp_insert_post(
+                    array(
                     'post_author' => get_current_user_id(),
                     'post_content' => $content,
                     'post_name' =>  $slug,
@@ -297,7 +298,8 @@ trait AdminMenu
                     'menu_order' => 0,
                     'to_ping' =>  '',
                     'pinged' => ''
-                    ));
+                    )
+                );
 
                 // check if files are supposed to created before creating
 
@@ -361,13 +363,15 @@ trait AdminMenu
                             </th>
                             <td>
                                 " .
-                                \Gear::outputSelect(array(
+                                \Gear::outputSelect(
+                                    array(
                                     'name'=>'parent',
                                     'class'=>'gf_input',
                                     'default_text'=>false,
                                     'selected_option'=>$parent,
                                     'options'=>array('0'=>'No Parent') + \Gear::referenceTable($wpdb->prefix.'posts', 'ID', 'post_title', array('where'=>"post_type LIKE 'page'", 'order_by'=>'post_title ASC'))
-                                ))
+                                    )
+                                )
                                 . "
                             </td>
                         </tr>
@@ -377,7 +381,8 @@ trait AdminMenu
                             </th>
                             <td>
                                 " .
-                                wp_dropdown_categories(array(
+                                wp_dropdown_categories(
+                                    array(
                                     'name'=>'category',
                                     'class'=>'gf_input',
                                     'selected'=>$category,
@@ -385,7 +390,8 @@ trait AdminMenu
                                     'orderby'=>'name',
                                     'show_option_none'=>__('No Category'),
                                     'echo'=>false
-                                ))
+                                    )
+                                )
                                 . "
                             </td>
                         </tr>

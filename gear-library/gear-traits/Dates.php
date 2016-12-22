@@ -64,8 +64,8 @@ trait Dates
         if ($datetime_object !== false) {
             $datetime_object->modify($adjust);
             return $datetime_object->format($format);
-        // return current date when DateTime fails
         } else {
+            // return current date when DateTime fails
             return date($format, strtotime($adjust));
         }
     }
@@ -80,7 +80,7 @@ trait Dates
         return self::date($format, $date_time, $adjust);
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     public static function formatDate($format = 'Y-m-d', $date_time = 'now')
     {
@@ -97,7 +97,7 @@ trait Dates
         return self::time($format, $date_time);
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     public static function adjustDate($adjust = '-0 days', $date_time = 'now')
     {

@@ -108,7 +108,7 @@ trait DatabaseAccess
         return $connection;
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
     // run provided query using pdo
     public static function query($query, $values = array(), $parms = array())
@@ -164,7 +164,7 @@ trait DatabaseAccess
         }
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
     // insert values into table
     public static function insertTableRow($table, $column_values)
@@ -191,7 +191,7 @@ trait DatabaseAccess
         return self::query($query, $values);
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // update table where
     public static function updateTableWhere($table, $column_values, $where, $values = array())
@@ -225,7 +225,7 @@ trait DatabaseAccess
         return self::query($query, $values, $parms);
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
     // delete from table where
     public static function deleteTableWhere($table, $where, $values = array())
@@ -245,7 +245,7 @@ trait DatabaseAccess
         return self::query("DELETE FROM $table", array(), $parms);
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // select all rows where
     public static function selectTableWhere($table, $where, $values = array(), $parms = array())
@@ -278,7 +278,7 @@ trait DatabaseAccess
         return self::query("SELECT * FROM $table", array(), $parms);
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // simple select for joined table data
     public static function simpleSelectJoin($left_table, $join, $right_table, $left_on, $right_on, $parms = array())
@@ -292,6 +292,7 @@ trait DatabaseAccess
         // get all columns for the left table
         $left_cols = self::query("DESCRIBE $left_table");
         foreach ($left_cols as $col) {
+            // track all column names used
             array_push($col_fields, $col['Field']);
             $query .= "$left_table.{$col['Field']} AS {$col['Field']}, ";
         }
@@ -299,12 +300,12 @@ trait DatabaseAccess
         // get all columns for the right table
         $right_cols = self::query("DESCRIBE $right_table");
         foreach ($right_cols as $col) {
-            // only take id from the left table
+            // check if column name is available, else prepend the table name to it
             if (in_array($col['Field'], $col_fields)) {
                 $query .= "$right_table.{$col['Field']} AS `{$right_table}.{$col['Field']}`, ";
-                continue;
+            } else {
+                $query .= "$right_table.{$col['Field']} AS {$col['Field']}, ";
             }
-            $query .= "$right_table.{$col['Field']} AS {$col['Field']}, ";
         }
         
         $query = rtrim($query, ', ') . " FROM $left_table $join JOIN $right_table ON $left_on = $right_on";
@@ -379,7 +380,7 @@ trait DatabaseAccess
         return self::query($query, $values, $parms);
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // build an array where array[$key_col] == $value_col
     public static function referenceTableWhere($table, $key_col, $value_col, $where, $values = array(), $parms = array())
@@ -405,7 +406,7 @@ trait DatabaseAccess
         return $return;
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // append parms to query
     protected static function processParms(&$query, &$values, &$parms)

@@ -46,9 +46,9 @@ trait Validation
                 $valid = false;
             }
         } elseif (in_array($type, array('boolean', 'tinyint', 'smallint', 'mediumint', 'int', 'bigint'))) {
-        //////////////////////
-        // validate integer
-        //////////////////////
+            //////////////////////
+            // validate integer
+            //////////////////////
             $min = 0;
             $max = 0;
             
@@ -84,9 +84,9 @@ trait Validation
                 $valid = false;
             }
         } elseif (in_array($type, array('float', 'double', 'decimal'))) {
-        //////////////////////
-        // validate decimal
-        //////////////////////
+            //////////////////////
+            // validate decimal
+            //////////////////////
             // get left and right width allowed
             $left_right_width = explode(',', $width);
             $right_width = $left_right_width[1];
@@ -107,9 +107,9 @@ trait Validation
                 $valid = false;
             }
         } elseif ($type == 'date') {
-        //////////////////////
-        // validate date
-        //////////////////////
+            //////////////////////
+            // validate date
+            //////////////////////
             $slash_mdy = \DateTime::createFromFormat('m/d/Y', $value);
             $slash_ymd = \DateTime::createFromFormat('Y/m/d', $value);
             $dash_mdy = \DateTime::createFromFormat('m-d-Y', $value);
@@ -160,16 +160,16 @@ trait Validation
                     $valid = false;
                 }
             } else {
-            // four digit year
+                // four digit year
                 if ($value < 1901 || $value > 2155) {
                     self::error($label . " must be a year between 1901 and 2155.");
                     $valid = false;
                 }
             }
         } elseif (in_array($type, array('tinyblob', 'tinytext', 'blob', 'text',  'mediumblog', 'mediumtext', 'longblob', 'longtext'))) {
-        //////////////////////
-        // validate blob/text
-        //////////////////////
+            //////////////////////
+            // validate blob/text
+            //////////////////////
             // which blob/text
             switch ($type) {
                 case 'tinyblob':
@@ -195,9 +195,9 @@ trait Validation
                 $valid = false;
             }
         } elseif ($type == 'enum') {
-        //////////////////////
-        // validate enum
-        //////////////////////
+            //////////////////////
+            // validate enum
+            //////////////////////
             // get allowed enum values
             $enum_vals = explode(',', $width);
             foreach ($enum_vals as $key => $val) {
@@ -209,9 +209,9 @@ trait Validation
                 $valid = false;
             }
         } else {
-        //////////////////////
-        // unrecongnized type
-        //////////////////////
+            //////////////////////
+            // unrecongnized type
+            //////////////////////
             $valid = false;
             $message = array();
             $message[] = "Validation type ($type) is unrecognized.";

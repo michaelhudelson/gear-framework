@@ -74,7 +74,7 @@ trait Messages
         self::error('There was an internal system error. Please contact an administrator.');
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
     // creates new message groups like error and debug on the fly
     public static function createMessage($title, $class = '', $messages = null)
@@ -95,11 +95,11 @@ trait Messages
         array_push($GLOBALS['gf_message_array'][$index]['messages'], self::messageFormat($message));
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     
     // convert array into string output
     protected static function messageFormat($message, $format = array('new_line' => '<br/>', 'tab' => '|&nbsp; &nbsp; &nbsp; &nbsp;', 'indent' => 0))
-    {        
+    {
         // output objects
         if (is_object($message)) {
             $vars = get_object_vars($message);
@@ -169,11 +169,11 @@ trait Messages
         return $return;
     }
     
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
     // add message to $file
     public static function log($log_file, $messages)
-    {        
+    {
         // expect messages to be array
         if (!is_array($messages)) {
             $messages = array($messages);
