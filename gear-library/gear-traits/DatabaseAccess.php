@@ -35,6 +35,7 @@
 // public static function referenceTable($table, $key_col, $value_col, $parms = array())
 // 
 // protected static function processParms(&$query, &$values, &$parms)
+// protected static function processValues(&$values, $parm_values)
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -120,6 +121,7 @@ trait DatabaseAccess
         if ($GLOBALS['gf_query_debug']) {
             self::debug($query);
             self::debug($values);
+            self::debug($parms);
         }
         
         // connect and run query
@@ -421,6 +423,7 @@ trait DatabaseAccess
                 $length_to_from = stripos($query, ' FROM ') - $start_after_select;
                 $query = substr_replace($query, $parms['select'], $start_after_select, $length_to_from);
             }
+            self::processValues($values, $parms['select_values']);
         }
         
         // add additional columns to select
@@ -429,25 +432,69 @@ trait DatabaseAccess
                 $start_before_from = stripos($query, ' FROM ');
                 $query = substr_replace($query, ', '.$parms['select_additional'], $start_before_from, 0);
             }
+            self::processValues($values, $parms['select_additional_values']);
         }
         
         // add where clause if set
         if (isset($parms['where']) && $parms['where'] !== '') {
             $query .= " WHERE {$parms['where']}";
-            if (!is_array($parms['where_values'])) {
-                $parms['where_values'] = array($parms['where_values']);
-            }
-            $values = array_merge($values, $parms['where_values']);
+            self::processValues($values, $parms['where_values']);
         }
         
         // add group by clause if set
         if (isset($parms['group_by']) && $parms['group_by'] !== '') {
             $query .= " GROUP BY {$parms['group_by']}";
+            self::processValues($values, $parms['group_by_values']);
         }
         
         // add order by clause if set
         if (isset($parms['order_by']) && $parms['order_by'] !== '') {
             $query .= " ORDER BY {$parms['order_by']}";
+            self::processValues($values, $parms['order_by_values']);
+        }
+        
+        // build limit clause if page and page_size are set
+        if (isset($parms['page']) && $parms['page'] !== '' && isset($parms['page_size']) && $parms['page_size'] !== '') {
+            // page number expected to be human readable i.e 1, 2, 3, ...
+            $page_index = $parms['page'] < 1 ? 0 : ($parms['page'] - 1);
+            $offset = $page_index * $parms['page_size'];
+            $parms['limit'] = '?, ?';
+            $parms['limit_values'] = array($offset, $parms['page_size']);
+        }
+        
+        // add limit clause if set
+        if (isset($parms['limit']) && $parms['limit'] !== '') {
+            // make sure parms limit values is an array
+            if (!is_array($parms['limit_values'])) {
+                $parms['limit_values'] = array($parms['limit_values']);
+            }
+            
+            // get the number of values received ie offset vs offset, count
+            $limit_values_count = sizeof($parms['limit_values']);
+            if ($limit_values_count === 1) {
+                $limit = (int)$parms['limit_values'][0];
+                $parms['limit'] = (string)$limit;
+            } elseif ($limit_values_count === 2) {
+                $offset = (int)$parms['limit_values'][0];
+                $limit = (int)$parms['limit_values'][1];
+                $parms['limit'] = (string)$offset . ', ' . (string)$limit;
+            }
+            
+            // build into the query
+            $query .= " LIMIT {$parms['limit']}";
+        }
+    }
+    
+    // push values onto array
+    protected static function processValues(&$values, $parm_values)
+    {
+        // check if there are parm values to push into values
+        if (!empty($parm_values)) {
+            // make sure parm values are an array
+            if (!is_array($parm_values)) {
+                $parm_values = array($parm_values);
+            }
+            $values = array_merge($values, $parm_values);
         }
     }
 }

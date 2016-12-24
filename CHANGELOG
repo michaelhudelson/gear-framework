@@ -6,9 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 GitHub: https://github.com/michaelhudelson/gear-framework
 
-## [1.0.007] - 2016-12-22
+## [1.0.008] - 2016-12-24
 ### Changed
-- /gear-library/gear-traits/Dates.php - date() - Fixed bug
+- Gear::processParms() - Added ability to pass in values for every parm option
+  and added the following parms: limit & limit_values, page & page_size
+### Added
+- Gear::processValues() - Add function to auto process values for each parm
+
+## [1.0.007] - 2016-12-22
+### Fixed
+- Gear::date() - Fixed bug
 
 ## [1.0.006] - 2016-12-21
 ### Added
