@@ -9,5 +9,6 @@ namespace GearFramework;
 
 trait MemberVariables
 {
+    // used to hold instance of singleton object
     private static $instance;
 }

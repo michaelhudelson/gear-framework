@@ -34,6 +34,7 @@ trait Constructor
     
     public static function initialize()
     {
+        // initialize object as singleton
         if (static::$instance === null) {
             static::$instance = new static();
         }

@@ -30,5 +30,5 @@ class GearFramework
     use MVC;
 }
 
-// initialize plugin
+// initialize plugin as singleton
 GearFramework::initialize();
