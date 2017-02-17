@@ -14,6 +14,10 @@ trait OutputApp
     public function loadOutput($output)
     {
         $return = '';
+        
+        // initialize js
+        $return .= $this->initializeJs();
+
         // check if js is required and wrap content accordingly
         if ($GLOBALS['gf_require_js']) {
             $return .="<div class='gf-container' style='display:none;'>";
@@ -21,9 +25,6 @@ trait OutputApp
             $return .= "<div class='gf-container'>";
         }
         
-        // initialize js
-        $return .= $this->initializeJs();
-
         // get css and js into return
         $return .= $this->loadCssJs();
 

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 GitHub: https://github.com/michaelhudelson/gear-framework
 
+## [1.0.009] - 2017-2-17
+### Fixed
+- GearFramework::initializeJs() in OutputApp.php - Moved initializeJs to run 
+  before the gf-container was created so that noscript would correctly appear
+
 ## [1.0.008] - 2016-12-24
 ### Changed
 - Gear::processParms() - Added ability to pass in values for every parm option

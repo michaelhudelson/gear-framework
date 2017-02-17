@@ -3,7 +3,7 @@
 /*
 Plugin Name: Gear Framework
 Description: Web Application Development for WordPress
-Version: 1.0.008
+Version: 1.0.009
 Author: Michael Hudelson
 Author URI: http://www.gearframework.com
 GitHub Repository: https://github.com/michaelhudelson/gear-framework.git
