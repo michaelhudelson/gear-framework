@@ -178,7 +178,7 @@ trait DatabaseAccess
 
         // build query, markers, and values
         foreach ($column_values as $column => $value) {
-            $query .= "$column, ";
+            $query .= "`$column`, ";
             $markers .= '?, ';
             array_push($values, $value);
         }
@@ -216,7 +216,7 @@ trait DatabaseAccess
         
         // build query and values
         foreach ($column_values as $column => $value) {
-            $query .= "$column = ?, ";
+            $query .= "`$column` = ?, ";
             array_push($values, $value);
         }
 
