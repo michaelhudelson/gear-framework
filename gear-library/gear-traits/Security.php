@@ -141,17 +141,17 @@ trait Security
             $encryption_key  = AUTH_KEY;
         }
 		
-		// set the cipher method to use for encryption
-		$cipher = 'AES-256-CTR';
-		
-		// set a random initialization vector that is the correct length based on the cipher method being used
-		$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
-		
-		// encrypt string
-		$encryption = openssl_encrypt($string, $cipher, md5($encryption_key), OPENSSL_RAW_DATA, $iv);
-		
-		// concatenate the initialization vector string & encryption string allow for easy transmisssion & to make short encryption strings longer so it is harder to guess
-		// also base64 encode the string, switch out a couple characters, and remove trailing whitespaces & =
+	// set the cipher method to use for encryption
+	$cipher = 'AES-256-CTR';
+
+	// set a random initialization vector that is the correct length based on the cipher method being used
+	$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
+
+	// encrypt string
+	$encryption = openssl_encrypt($string, $cipher, md5($encryption_key), OPENSSL_RAW_DATA, $iv);
+
+	// concatenate the initialization vector string & encryption string allow for easy transmisssion & to make short encryption strings longer so it is harder to guess
+	// also base64 encode the string, switch out a couple characters, and remove trailing whitespaces & =
         return rtrim(strtr(base64_encode($iv.$encryption), '+/', '-_'), '=');
     }
 
@@ -162,18 +162,18 @@ trait Security
             $encryption_key  = AUTH_KEY;
         }
 		
-		// base64 decode the string, switch out a couple characters, and add back trailing =
+	// base64 decode the string, switch out a couple characters, and add back trailing =
         $encryption = base64_decode(str_pad(strtr($url_encryption, '-_', '+/'), strlen($url_encryption) % 4, '=', STR_PAD_RIGHT));
 				
-		// set the cipher method to use for decryption
-		$cipher = 'AES-256-CTR';
-		
-		// reseparate the initialization vector string and encryption string
-		$ivSize = openssl_cipher_iv_length($cipher);
-		$iv = substr($encryption, 0, $ivSize);
-		$encryption = substr($encryption, $ivSize);
-		
-		// decrypt the string
-		return openssl_decrypt($encryption, $cipher, md5($encryption_key), OPENSSL_RAW_DATA, $iv);
+	// set the cipher method to use for decryption
+	$cipher = 'AES-256-CTR';
+
+	// reseparate the initialization vector string and encryption string
+	$ivSize = openssl_cipher_iv_length($cipher);
+	$iv = substr($encryption, 0, $ivSize);
+	$encryption = substr($encryption, $ivSize);
+
+	// decrypt the string
+	return openssl_decrypt($encryption, $cipher, md5($encryption_key), OPENSSL_RAW_DATA, $iv);
     }
 }
